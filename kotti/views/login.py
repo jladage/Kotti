@@ -177,6 +177,8 @@ def login(context, request):
             request.session.flash(
                 _(u"That username or email is not known by this system."),
                 'error')
+        headers = remember(request, user.name)
+        return HTTPFound(location=came_from, headers=headers)
 
     return {
         'url': request.application_url + '/@@login',
